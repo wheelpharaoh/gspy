@@ -1,3 +1,6 @@
+
+# uvicorn gspy.main:app --port 8000 --
+# gunicorn gspy.main:app -w 4 -k uvicorn.workers.UvicornWorker
 import json
 from typing import List
 
@@ -5,9 +8,9 @@ from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 
 from . import crud, models, schemas
-from .database import SessionLocal, engine
+from . import database
 
-models.Base.metadata.create_all(bind=engine)
+models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI()
 
@@ -15,7 +18,7 @@ app = FastAPI()
 # Dependency
 def get_db():
     try:
-        db = SessionLocal()
+        db = database.SessionLocal()
         yield db
     finally:
         db.close()
@@ -499,3 +502,6 @@ def read_unit(unit_id: int, skip: int = 0, limit: int = 100, db: Session = Depen
     unit = crud.get_unit(db, unit_id=unit_id)
     return unit
 
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000, log_level="info")

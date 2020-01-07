@@ -127,11 +127,9 @@
           group: gs
 
       - name: (re)start gspy service
-        systemd:
-          name: gspy
-          state: restarted
-          enabled: yes
-
+        shell: /home/gs/.venv/gspy/bin/gunicorn gspy.main:app -w 4 -k uvicorn.workers.UvicornWorker   
+        args:
+          chdir: /opt/gspy/gspy       
         #shell: ln -s /etc/nginx/sites-available/awkru /etc/nginx/sites-enabled      
 
 
