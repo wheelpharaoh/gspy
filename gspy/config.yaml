@@ -1,0 +1,3 @@
+DB:
+  jp: ./gspy/gl/encrypted_app.db
+  gl: ./gspy/gl/encrypted_app.db

@@ -1,0 +1,137 @@
+---
+  - name: Awkru-api (gspy)
+    hosts: all
+    become: yes
+    become_user: root
+    gather_facts: no
+    connection: paramiko
+    tasks:
+
+      - name: add ssh key to server
+        authorized_key:
+          user: root
+          state: present
+          manage_dir: yes
+          key: "{{ lookup('file', '/Users/jo/.ssh/id_rsa.pub') }}"
+
+      - name: create gs user 
+        user:
+          name: gs
+          shell: /bin/bash
+          comment: grand summoners projects users
+
+      - name: Ensure .ssh directory exists.
+        file:
+          path: /home/gs/.ssh/
+          state: directory
+          mode: 0700
+          owner: gs
+          group: gs
+
+      - name: add deploy key to server
+        copy:
+          src: /Users/jo/.ssh/github
+          dest: /home/gs/.ssh/deploy_key
+          mode: 0600
+          owner: gs
+          group: gs
+
+      - name: install packages
+        package:
+          name: 
+            - nginx
+            - python3
+            - git
+            - python3-pip 
+            - python3-dev 
+            - build-essential 
+            - libssl-dev 
+            - libffi-dev 
+            - python3-setuptools
+            - python3-venv
+            - python-setuptools
+            - fail2ban
+          state: latest
+
+      - name: create virtualenv
+        shell: python3 -m venv /home/gs/.venv/gspy
+        become: yes
+        become_user: gs
+
+      - name: set venv perms
+        file:
+          path: /home/gs/.venv/gspy
+          mode: 0755 
+        become: yes
+        become_user: gs
+
+      - name: activate venv
+        shell: . /home/gs/.venv/gspy/bin/activate
+        become: yes
+        become_user: gs
+    
+      - name: Ensure project directory has correct permissions.
+        file:
+          path: /opt/gspy
+          state: directory
+          owner: gs
+          group: gs
+
+      - name: clone repo 
+        git:
+          repo: git@github.com:wheelpharaoh/gspy.git
+          dest: /opt/gspy
+          version: master
+          accept_hostkey: yes
+          key_file: /home/gs/.ssh/deploy_key          
+        become: yes
+        become_user: gs
+        tags:
+          - repo
+
+      - name: install requirments
+        pip:
+          requirements: /opt/gspy/requirements.txt
+          virtualenv: /home/gs/.venv/gspy
+          #virtualenv_python: python3
+        become: yes
+        become_user: gs
+        tags:
+          - requirements.txt
+
+      - name: install gspy
+        pip:
+          editable: yes
+          name: /opt/gspy/gspy
+          virtualenv: /home/gs/.venv/gspy
+          #virtualenv_python: python3
+        become: yes
+        become_user: gs
+        tags:
+          - install_gsinfo
+
+      - name: copy config.yaml
+        copy:
+          src: /Users/jo/dev/gs/scripts/gspy/gspy/config.yaml
+          dest: /opt/gspy/gspy/config.yaml
+          owner: gs
+          group: gs
+        become: yes
+        become_user: gs
+
+      - name: Create log dirs
+        file:
+          path: /var/log/gspy
+          state: directory
+          owner: gs
+          group: gs
+
+      - name: (re)start gspy service
+        systemd:
+          name: gspy
+          state: restarted
+          enabled: yes
+
+        #shell: ln -s /etc/nginx/sites-available/awkru /etc/nginx/sites-enabled      
+
+

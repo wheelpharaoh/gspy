@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve gs-info
+After=network.target
+
+[Service]
+User=gs
+Group=www-data
+WorkingDirectory=/opt/gsinfo
+Environment="PATH=/home/gs/.venv/gsinfo/bin"
+ExecStart=/home/gs/.venv/gsinfo/bin/uwsgi --ini gsinfo.ini
+
+[Install]
+WantedBy=multi-user.target
