@@ -108,7 +108,7 @@
         become: yes
         become_user: gs
         tags:
-          - install_gsinfo
+          - install_gspy
 
       - name: copy config.yaml
         copy:
@@ -118,6 +118,8 @@
           group: gs
         become: yes
         become_user: gs
+        tags:
+          - config.yaml  
 
       - name: Create log dirs
         file:
