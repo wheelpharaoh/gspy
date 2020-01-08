@@ -146,4 +146,26 @@
           #chdir: /opt/gspy/gspy       
         #shell: ln -s /etc/nginx/sites-available/awkru /etc/nginx/sites-enabled      
 
+      - name: create gspy site
+        shell: cp /opt/gspy/nginx_gunicorn.conf /etc/nginx/sites-available/gspy
+        tags:
+          - nginx
+
+      - name: enable gspy site 
+        file:
+          src: /etc/nginx/sites-available/gspy
+          dest: /etc/nginx/sites-enabled/gspy
+          state: link
+        #shell: ln -s /etc/nginx/sites-available/awkru /etc/nginx/sites-enabled      
+        tags:
+          - nginx
+
+      - name: reload nginx
+        systemd:
+          name: nginx
+          state: reloaded
+          enabled: yes
+        tags:
+          - nginx
+
 
