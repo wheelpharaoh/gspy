@@ -121,6 +121,18 @@
         tags:
           - config.yaml  
 
+      - name: create systemd service file
+        shell: cp /opt/gspy/gspy.service /etc/systemd/system/gunicorn.service
+
+      - name: create systemd socket file
+        shell: cp /opt/gspy/gspy.socket /etc/systemd/system/gunicorn.socket
+
+      - name: (re)start gspy service
+        systemd:
+          name: gspy
+          state: restarted
+          enabled: yes
+
       - name: Create log dirs
         file:
           path: /var/log/gspy
@@ -128,10 +140,10 @@
           owner: gs
           group: gs
 
-      - name: (re)start gspy service
-        shell: /home/gs/.venv/gspy/bin/gunicorn gspy.main:app -w 4 -k uvicorn.workers.UvicornWorker   
-        args:
-          chdir: /opt/gspy/gspy       
+      #- name: (re)start gspy service
+        #shell: /home/gs/.venv/gspy/bin/gunicorn gspy.main:app -w 4 -k uvicorn.workers.UvicornWorker   
+        #args:
+          #chdir: /opt/gspy/gspy       
         #shell: ln -s /etc/nginx/sites-available/awkru /etc/nginx/sites-enabled      
 
 
