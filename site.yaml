@@ -122,10 +122,10 @@
           - config.yaml  
 
       - name: create systemd service file
-        shell: cp /opt/gspy/gspy.service /etc/systemd/system/gunicorn.service
+        shell: cp /opt/gspy/gspy.service /etc/systemd/system/gspy.service
 
       - name: create systemd socket file
-        shell: cp /opt/gspy/gspy.socket /etc/systemd/system/gunicorn.socket
+        shell: cp /opt/gspy/gspy.socket /etc/systemd/system/gspy.socket
 
       - name: (re)start gspy service
         systemd:

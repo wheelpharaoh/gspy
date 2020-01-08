@@ -1,6 +1,6 @@
 [Unit]
-Description=gunicorn daemon
-Requires=gunicorn.socket
+Description=gspy daemon
+Requires=gspy.socket
 After=network.target
 
 [Service]
