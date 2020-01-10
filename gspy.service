@@ -11,7 +11,7 @@ Group=www-data
 # another option for an even more restricted service is
 # DynamicUser=yes
 # see http://0pointer.net/blog/dynamic-users-with-systemd.html
-RuntimeDirectory=gunicorn
+RuntimeDirectory=/opt/gspy
 WorkingDirectory=/opt/gspy
 ExecStart=/home/gs/.venv/gspy/bin/gunicorn gspy.main:app -w 4 -k uvicorn.workers.UvicornWorker
 ExecReload=/bin/kill -s HUP $MAINPID

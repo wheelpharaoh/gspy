@@ -6,6 +6,7 @@ from typing import List
 
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
+import uvicorn
 
 from . import crud, models, schemas
 from . import database
@@ -202,11 +203,15 @@ def read_item_limitbreak_exps(skip: int = 0, limit: int = 100, db: Session = Dep
 
 @app.get("/item/{item_id}", response_model=schemas.ItemMaster)
 def read_event(item_id: int, db: Session = Depends(get_db)):
-    item = crud.get_item(db, item_id=event_id)
+    item = crud.get_item(db, item_id=item_id)
     return item
 @app.get("/items/", response_model=List[schemas.ItemMaster])
 def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     items = crud.get_items(db, skip=skip, limit=limit)
+    return items
+@app.get("/items_name/{item_name}", response_model=List[schemas.ItemMaster])
+def read_items_by_name(item_name: str, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    items = crud.get_items_by_name(db, item_name, skip=skip, limit=limit)
     return items
 
 

@@ -119,6 +119,10 @@ def get_item(db: Session, item_id: int):
 
 def get_items(db: Session, skip: int = 0, limit: int = 200):
     return db.query(models.ItemMaster).offset(skip).limit(limit).all()
+def get_items_by_name(db: Session, item_name: str, skip: int = 0, limit: int = 100):
+    search = "%{}%".format(item_name)
+    return db.query(models.ItemMaster).filter(models.ItemMaster.name.ilike(search)).limit(limit).all()
+
 
 
 def get_item_recipes(db: Session, skip: int = 0, limit: int = 200):
