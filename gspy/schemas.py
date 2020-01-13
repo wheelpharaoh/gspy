@@ -1448,9 +1448,9 @@ class SkillMasterBase(BaseModel):
     skill_group_id: int
     priority: int
     damage_value: Union[int, str]
-    break_value: int
+    break_value: Union[int, str]
     range_y: int
-    element: int
+    element: Union[int, str]
     attribute: Union[int, str]
     need_sp: Union[int, str]
     cooltime: Union[int, str]
