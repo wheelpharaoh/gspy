@@ -49,10 +49,8 @@ def get_dungeons(db: Session, skip: int = 0, limit: int = 100):
 
 def get_enemy(db: Session, enemy_id: int):
     return db.query(models.EnemyMaster).filter(models.EnemyMaster.id == enemy_id).first()
-
 def get_enemys(db: Session, skip: int = 0, limit: int = 300):
     return db.query(models.EnemyMaster).offset(skip).limit(limit).all()
-
 def get_enemys_by_name(db: Session, enemy_name: str, skip: int = 0, limit: int = 100):
     search = "%{}%".format(enemy_name)
     return db.query(models.EnemyMaster).join(models.EnemyMaster.unit).filter(models.EnemyMaster.name.ilike(search)).limit(limit).all()
@@ -116,7 +114,6 @@ def get_item_limitbreak_exps(db: Session, skip: int = 0, limit: int = 200):
 
 def get_item(db: Session, item_id: int):
     return db.query(models.ItemMaster).filter(models.ItemMaster.id == item_id).first()
-
 def get_items(db: Session, skip: int = 0, limit: int = 200):
     return db.query(models.ItemMaster).offset(skip).limit(limit).all()
 def get_items_by_name(db: Session, item_name: str, skip: int = 0, limit: int = 100):
@@ -254,8 +251,15 @@ def get_shop_dias(db: Session, skip: int = 0, limit: int = 200):
     return db.query(models.ShopDiaMaster).order_by(models.ShopMaster.start_at.desc()).offset(skip).limit(limit).all()
 
 
+def get_skill(db: Session, skill_id: int):
+    return db.query(models.SkillMaster).filter(models.SkillMaster.id == skill_id).first()
 def get_skills(db: Session, skip: int = 0, limit: int = 200):
     return db.query(models.SkillMaster).offset(skip).limit(limit).all()
+def get_skills_by_name(db: Session, skill_name: str, skip: int = 0, limit: int = 100):
+    search = "%{}%".format(skill_name)
+    return db.query(models.SkillMaster).filter(models.SkillMaster.name.ilike(search)).limit(limit).all()
+
+
 
 def get_skill_effects(db: Session, skip: int = 0, limit: int = 200):
     return db.query(models.SkillEffectMaster).offset(skip).limit(limit).all()
@@ -275,7 +279,6 @@ def get_skins(db: Session, skip: int = 0, limit: int = 200):
 
 def get_stamps(db: Session, skip: int = 0, limit: int = 200):
     return db.query(models.StampMaster).offset(skip).limit(limit).all()
-
 
 def get_support_rewards(db: Session, skip: int = 0, limit: int = 200):
     return db.query(models.SupporterRewardMaster).offset(skip).limit(limit).all()
@@ -298,10 +301,13 @@ def get_unit_limitbreak_exps(db: Session, skip: int = 0, limit: int = 200):
 def get_unit_limitbreaks(db: Session, skip: int = 0, limit: int = 200):
     return db.query(models.UnitLimitbreakMaster).offset(skip).limit(limit).all()
 
-def get_units(db: Session, skip: int = 0, limit: int = 200):
-    return db.query(models.UnitMaster).offset(skip).limit(limit).all()
 
 def get_unit(db: Session, unit_id: int):
     return db.query(models.UnitMaster).filter(models.UnitMaster.id == unit_id).first()
+def get_units(db: Session, skip: int = 0, limit: int = 200):
+    return db.query(models.UnitMaster).offset(skip).limit(limit).all()
+def get_units_by_name(db: Session, unit_name: str, skip: int = 0, limit: int = 100):
+    search = "%{}%".format(unit_name)
+    return db.query(models.UnitMaster).filter(models.UnitMaster.name.ilike(search)).limit(limit).all()
 
 

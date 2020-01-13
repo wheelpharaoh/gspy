@@ -432,10 +432,20 @@ def read_skill_effects(skip: int = 0, limit: int = 100, db: Session = Depends(ge
     skill_effects = crud.get_skill_effects(db, skip=skip, limit=limit)
     return skill_effects
 
+
+@app.get("/skill/{skill_id}", response_model=schemas.SkillMaster)
+def read_event(skill_id: int, db: Session = Depends(get_db)):
+    skill = crud.get_skill(db, skill_id=skill_id)
+    return skill
 @app.get("/skills/", response_model=List[schemas.SkillMaster])
 def read_skills(skip: int = 0, limit: int = 300, db: Session = Depends(get_db)):
     skills = crud.get_skills(db, skip=skip, limit=limit)
     return skills
+@app.get("/skills_name/{skill_name}", response_model=List[schemas.SkillMaster])
+def read_skills_by_name(skill_name: str, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    skills = crud.get_skills_by_name(db, skill_name, skip=skip, limit=limit)
+    return skills
+
 
 @app.get("/skill_relations/", response_model=List[schemas.SkillRelationMaster])
 def read_skill_relations(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
@@ -497,15 +507,19 @@ def read_unit_limitbreaks(skip: int = 0, limit: int = 100, db: Session = Depends
     unit_limitbreaks = crud.get_unit_limitbreaks(db, skip=skip, limit=limit)
     return unit_limitbreaks
 
-@app.get("/units/", response_model=List[schemas.UnitMaster])
-def read_units(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    units = crud.get_units(db, skip=skip, limit=limit)
-    return units
 
 @app.get("/unit/{unit_id}", response_model=schemas.UnitMaster)
 def read_unit(unit_id: int, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     unit = crud.get_unit(db, unit_id=unit_id)
     return unit
+@app.get("/units/", response_model=List[schemas.UnitMaster])
+def read_units(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    units = crud.get_units(db, skip=skip, limit=limit)
+    return units
+@app.get("/units_name/{unit_name}", response_model=List[schemas.UnitMaster])
+def read_units_by_name(unit_name: str, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    units = crud.get_units_by_name(db, unit_name, skip=skip, limit=limit)
+    return units
 
 
 if __name__ == "__main__":

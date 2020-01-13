@@ -145,13 +145,13 @@ class ArenaShopMaster(Base):
 class BattleRelationMaster(Base):
     __tablename__ = 'battle_relation_master'
 
-    id = Column(Numeric, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     quest_id = Column(Integer, ForeignKey('quest_master.id'))
     battle_no = Column(Integer)
     weight = Column(Integer)
     bgm_name = Column(Text)
     background_name = Column(Text)
-    battlemaster_id = Column(Numeric)
+    battlemaster_id = Column(Integer)
     field_setting_id = Column(Integer)
 
     quest = relationship("QuestMaster", foreign_keys=[quest_id])
@@ -433,7 +433,7 @@ class DungeonMaster(Base):
 class EventInfoMaster(Base):
     __tablename__ = 'event_info_master'
 
-    id = Column(Numeric, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     view_type = Column(Integer)
     memo = Column(Text)
     action_type = Column(Text)
@@ -625,7 +625,7 @@ class GachaStepUpMaster(Base):
 class HelpMaster(Base):
     __tablename__ = 'help_master'
 
-    id = Column(Numeric, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     key = Column(Text)
     value1 = Column(Integer)
     value2 = Column(Integer)
@@ -668,8 +668,8 @@ class ItemLimitbreakExpMaster(Base):
     __tablename__ = 'item_limitbreak_exp_master'
 
     id = Column(Integer, primary_key=True, index=True)
-    exp_id = Column(Numeric)
-    level = Column(Numeric)
+    exp_id = Column(Integer)
+    level = Column(Integer)
     exp = Column(Numeric)
 
 class ItemMaster(Base):
@@ -694,7 +694,7 @@ class ItemMaster(Base):
     size = Column(Numeric)
     max_limitbreak_cooltime = Column(Integer)
     min_limitbreak_cooltime = Column(Integer)
-    limit_break_exp_id = Column(Numeric)
+    limit_break_exp_id = Column(Integer)
     for_limit_break_exp = Column(Integer)
     description = Column(Text)
     drop_information = Column(Text)
@@ -772,8 +772,8 @@ class LinkSkillMaster(Base):
     base_unit_2_id = Column(Integer)
     base_unit_1_cutin_direction = Column(Integer)
     base_unit_2_cutin_direction = Column(Integer)
-    skill_1_id = Column(Numeric)
-    skill_2_id = Column(Numeric)
+    skill_1_id = Column(Integer)
+    skill_2_id = Column(Integer)
     skill_name = Column(Text)
     description = Column(Text)
 
@@ -830,7 +830,7 @@ class LoginBonusTotalMaster(Base):
     day = Column(Integer)
     message_title = Column(Text)
     message_content = Column(Text)
-    reward_id = Column(Numeric, ForeignKey('reward_master.id'))
+    reward_id = Column(Integer, ForeignKey('reward_master.id'))
     popup_text = Column(Text)
 
     reward = relationship("Reward", foreign_keys=[reward_id])
@@ -866,7 +866,7 @@ class MineBossBattleMaster(Base):
     __tablename__ = 'mine_boss_battle_master'
 
     id = Column(Integer, primary_key=True, index=True)
-    mine_id = Column(Numeric)
+    mine_id = Column(Integer)
     start_floor_num = Column(Integer)
     info_image_name = Column(Text)
     battle_bgm_name = Column(Text)
@@ -894,7 +894,7 @@ class MineBossBattleMaster(Base):
 class MineEnemyMaster(Base):
     __tablename__ = 'mine_enemy_master'
 
-    id = Column(Numeric, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     unit_id = Column(Integer)
     hp_threshold = Column(Integer)
     hp_function1 = Column(Text)
@@ -956,8 +956,8 @@ class MineEnemyMaster(Base):
 class MineEventMaster(Base):
     __tablename__ = 'mine_event_master'
 
-    id = Column(Numeric, primary_key=True, index=True)
-    mine_id = Column(Numeric)
+    id = Column(Integer, primary_key=True, index=True)
+    mine_id = Column(Integer)
     start_at = Column(Numeric)
     end_at = Column(Numeric)
 
@@ -965,7 +965,7 @@ class MineEventMaster(Base):
 class MineMaster(Base):
     __tablename__ = 'mine_master'
 
-    id = Column(Numeric, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     max_floor = Column(Integer)
     boss_magic_stone_rate = Column(Integer)
     stamina_function = Column(Text)
@@ -1180,7 +1180,7 @@ class QuestMissionMaster(Base):
     __tablename__ = 'quest_mission_master'
 
     id = Column(Integer, primary_key=True, index=True)
-    type = Column(Numeric)
+    type = Column(Integer)
     value = Column(Integer)
     value_list = Column(Text)
 
@@ -1341,11 +1341,11 @@ class RandomLoginBonusMaster(Base):
 class RandomRewardMaster(Base):
     __tablename__ = 'random_reward_master'
 
-    id = Column(Numeric, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     message_title = Column(Text, nullable=True)
     message_content = Column(Text, nullable=True)
     reward_type = Column(Integer)
-    reward_id = Column(Numeric)
+    reward_id = Column(Integer)
     reward_value = Column(Integer)
     reward_custom_parameter = Column(Text, nullable=True)
 
@@ -1375,7 +1375,7 @@ class RuneMaster(Base):
     type_id = Column(Integer, ForeignKey('rune_type_master.id'))
     level = Column(Integer)
     is_plus = Column(Integer)
-    skill_id = Column(Numeric, ForeignKey('skill_master.id'))
+    skill_id = Column(Integer, ForeignKey('skill_master.id'))
     level_up_value = Column(Integer)
     equipment_value = Column(Integer)
     change_value = Column(Integer)
@@ -1562,10 +1562,10 @@ class ShopMaster(Base):
 class SkillEffectMaster(Base):
     __tablename__ = 'skill_effect_master'
 
-    id = Column(Numeric, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     name = Column(Text, nullable=True)
     effect_type = Column(Integer)
-    skill_id = Column(Numeric, ForeignKey('skill_master.id'))
+    skill_id = Column(Integer, ForeignKey('skill_master.id'))
     target = Column(Integer)
     effect_time = Column(Integer)
     effect_value = Column(Integer)
@@ -1601,7 +1601,7 @@ class SkillGroupMaster(Base):
 class SkillMaster(Base):
     __tablename__ = 'skill_master'
 
-    id = Column(Numeric, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     name = Column(Text)
     skill_type = Column(Integer)
     skill_group_id = Column(Integer, ForeignKey('skill_group_master.id'))
@@ -1634,10 +1634,10 @@ class SkillMaster(Base):
 class SkillRelationMaster(Base):
     __tablename__ = 'skill_relation_master'
 
-    id = Column(Numeric, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     relation_type = Column(Integer)
     relation_id = Column(Integer)#, ForeignKey('enemy_master.id'))
-    skill_id = Column(Numeric, ForeignKey('skill_master.id'))
+    skill_id = Column(Integer, ForeignKey('skill_master.id'))
     need_level = Column(Integer)
 
     #enemy = relationship("EnemyMaster", foreign_keys=[relation_id])
@@ -1666,7 +1666,7 @@ class SkinMaster(Base):
 class StampMaster(Base):
     __tablename__ = 'stamp_master'
 
-    id = Column(Numeric, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     shop_id = Column(Integer, ForeignKey('shop_master.id'))
     set_no = Column(Numeric)
     name = Column(Text)
@@ -1677,7 +1677,7 @@ class StampMaster(Base):
 class SugorokuBonusMaster(Base):
     __tablename__ = 'sugoroku_bonus_master'
 
-    id = Column(Numeric, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     sugoroku_master_id = Column(Integer)
     type = Column(Integer)
     value = Column(Integer)
@@ -1688,7 +1688,7 @@ class SugorokuBonusMaster(Base):
 class SugorokuEffectMaster(Base):
     __tablename__ = 'sugoroku_effect_master'
 
-    id = Column(Numeric, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     sugoroku_master_id = Column(Integer)
     stage_id = Column(Integer)
     type = Column(Integer)
@@ -1713,7 +1713,7 @@ class SupporterRewardMaster(Base):
     __tablename__ = 'supporter_reward_master'
 
     id = Column(Integer, primary_key=True, index=True)
-    mine_id = Column(Numeric)
+    mine_id = Column(Integer)
     no = Column(Integer)
     name = Column(Text)
     description = Column(Text)
@@ -1746,7 +1746,7 @@ class UnitAbilityExpMaster(Base):
     __tablename__ = 'unit_ability_exp_master'
 
     id = Column(Integer, primary_key=True, index=True)
-    exp_id = Column(Numeric)
+    exp_id = Column(Integer)
     level = Column(Numeric)
     exp = Column(Numeric)
 
@@ -1778,7 +1778,7 @@ class UnitExpMaster(Base):
     __tablename__ = 'unit_exp_master'
 
     id = Column(Integer, primary_key=True, index=True)
-    exp_id = Column(Numeric)
+    exp_id = Column(Integer)
     level = Column(Numeric)
     exp = Column(Numeric)
 
@@ -1787,7 +1787,7 @@ class UnitLimitbreakExpMaster(Base):
     __tablename__ = 'unit_limitbreak_exp_master'
 
     id = Column(Integer, primary_key=True, index=True)
-    exp_id = Column(Numeric)
+    exp_id = Column(Integer)
     level = Column(Numeric)
     exp = Column(Numeric)
 
@@ -1795,14 +1795,14 @@ class UnitLimitbreakMaster(Base):
     __tablename__ = 'unit_limitbreak_master'
 
     id = Column(Integer, primary_key=True, index=True)
-    base_unit_id = Column(Numeric)
+    base_unit_id = Column(Integer)
     limit_break_level = Column(Numeric)
-    equipped1_type = Column(Numeric)
-    equipped1_rarity = Column(Numeric)
-    equipped2_type = Column(Numeric)
-    equipped2_rarity = Column(Numeric)
-    equipped3_type = Column(Numeric)
-    equipped3_rarity = Column(Numeric)
+    equipped1_type = Column(Integer)
+    equipped1_rarity = Column(Integer)
+    equipped2_type = Column(Integer)
+    equipped2_rarity = Column(Integer)
+    equipped3_type = Column(Integer)
+    equipped3_rarity = Column(Integer)
     buff_fortune_level = Column(Integer)
     buff_hp = Column(Integer)
     buff_attack = Column(Integer)
@@ -1822,12 +1822,12 @@ class UnitMaster(Base):
     race = Column(Integer)
     sexuality = Column(Integer)
     is_material = Column(Integer)
-    exp_id = Column(Numeric)
-    limit_break_exp_id = Column(Numeric)
+    exp_id = Column(Integer)
+    limit_break_exp_id = Column(Integer)
     rarity = Column(Integer)
     evolution_stage = Column(Integer)
-    level_max = Column(Numeric)
-    fortune_level_max = Column(Numeric)
+    level_max = Column(Integer)
+    fortune_level_max = Column(Integer)
     hitpoint_base = Column(Integer)
     hitpoint_max = Column(Integer)
     offence_base = Column(Integer)
@@ -1871,7 +1871,7 @@ class UnitMaster(Base):
     is_lock = Column(Integer)
     drop_information = Column(Text)
     is_limitbreak_ball = Column(Integer)
-    ability_exp_id = Column(Numeric)
+    ability_exp_id = Column(Integer)
     is_lua = Column(Integer)
     limited_id = Column(Integer)
     rune_num = Column(Integer)
