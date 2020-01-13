@@ -517,7 +517,7 @@ def read_units(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     units = crud.get_units(db, skip=skip, limit=limit)
     return units
 @app.get("/units_name/{unit_name}", response_model=List[schemas.UnitMaster])
-def read_units_by_name(unit_name: str, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+def read_units_by_name(unit_name: str, skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
     units = crud.get_units_by_name(db, unit_name, skip=skip, limit=limit)
     return units
 
