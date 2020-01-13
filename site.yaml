@@ -132,6 +132,9 @@
           name: gspy
           state: restarted
           enabled: yes
+        tags:
+          - gspy
+          - update
 
       - name: Create log dirs
         file:
