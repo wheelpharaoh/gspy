@@ -1451,7 +1451,7 @@ class SkillMasterBase(BaseModel):
     break_value: int
     range_y: int
     element: int
-    attribute: int
+    attribute: Union[int, str]
     need_sp: Union[int, str]
     cooltime: Union[int, str]
     cooltime_max: Union[int, str]
