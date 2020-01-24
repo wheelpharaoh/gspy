@@ -1,3 +1,4 @@
+# site.yaml -t repo,update,nginx -i inventory
 ---
   - name: Awkru-api (gspy)
     hosts: all
