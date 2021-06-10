@@ -13,7 +13,7 @@ Click==7.0
 cssselect==1.1.0
 dnspython==1.16.0
 email-validator==1.0.5
-fastapi==0.45.0
+fastapi==0.65.2
 fire==0.2.1
 graphene==2.1.8
 graphql-core==2.2.1
